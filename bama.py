@@ -5,7 +5,7 @@ import mysql.connector
 cnx=mysql.connector.connect(user='root',host='localhost',password='mahdis8731abd',database='bama_cars')
 cur=cnx.cursor()
 query =( "INSERT INTO cars_info(name,model,us,location,price) " 
-            "VALUES(%s,%s,%d,%s,%d)")
+            "VALUES(%s,%s,%s,%s,%s)")
 #for i in range(0,100):
 r=requests.get('https://bama.ir/car/all-brands/all-models/all-trims?hasprice=true')
 soup=BeautifulSoup(r.text,'html.parser')
@@ -13,7 +13,6 @@ cars=soup.find_all('li',class_="car-list-item-li")
 for car in cars:
     fname=car.find('span',class_="ad-title-span").text
     usage=car.find('p',class_="price hidden-xs").text
-    
     print(usage)
     location=car.find('span',class_="provice-mobile").text
     price=car.find('span',attrs={'itemprop':'price'}).get('content')
